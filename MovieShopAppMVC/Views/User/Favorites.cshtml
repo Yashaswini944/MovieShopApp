@@ -1,0 +1,26 @@
+﻿@model IEnumerable<ApplicationCore.Models.FavoriteModel>
+
+<div class="container mt-4">
+    <h2 class="mb-4">My Favorites</h2>
+
+    @if (!Model.Any())
+    {
+        <p class="text-muted">You have no favorite movies yet.</p>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var fav in Model)
+            {
+                <div class="col-md-3 mb-4">
+                    @await Html.PartialAsync("_MovieCard", new ApplicationCore.Models.MovieCardModel
+                    {
+                        Id = fav.MovieId,
+                        Title = fav.Title,
+                        PosterUrl = fav.PosterUrl
+                    })
+                </div>
+            }
+        </div>
+    }
+</div>

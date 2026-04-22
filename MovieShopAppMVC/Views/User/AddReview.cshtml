@@ -1,0 +1,22 @@
+﻿@model ApplicationCore.Models.ReviewRequestModel
+
+<div class="container mt-4">
+    <h2>Add Review</h2>
+
+    <form asp-action="AddReview" method="post">
+        <input type="hidden" asp-for="MovieId" />
+        <input type="hidden" asp-for="UserId" />
+
+        <div class="mb-3">
+            <label>Rating (1–10)</label>
+            <input asp-for="Rating" class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Review</label>
+            <textarea asp-for="ReviewText" class="form-control"></textarea>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+</div>

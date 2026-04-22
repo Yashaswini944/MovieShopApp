@@ -1,0 +1,69 @@
+﻿@model ApplicationCore.Models.MovieDetailsModel
+
+<div class="container mt-4">
+
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Model.PosterUrl" class="img-fluid rounded" />
+        </div>
+
+        <div class="col-md-8">
+            <h2>@Model.Title</h2>
+            <p class="text-muted">@Model.Tagline</p>
+
+            <p><strong>Release Date:</strong> @Model.ReleaseDate?.ToShortDateString()</p>
+            <p><strong>Runtime:</strong> @Model.RunTime mins</p>
+            <p><strong>Rating:</strong> @Model.Rating</p>
+
+            <p>@Model.Overview</p>
+
+            <h5>Genres</h5>
+            <p>
+                @foreach (var g in Model.Genres)
+                {
+                    <span class="badge bg-primary me-1">@g</span>
+                }
+            </p>
+
+            <h5>Trailers</h5>
+            <ul>
+                @foreach (var t in Model.Trailers)
+                {
+                    <li><a href="@t.TrailerUrl" target="_blank">@t.Name</a></li>
+                }
+            </ul>
+
+            <!-- ⭐ PURCHASE + REVIEW BUTTONS ⭐ -->
+            <div class="mt-4 d-flex gap-3">
+
+                <a class="btn btn-success btn-lg"
+                       href="/User/Purchase?movieId=@Model.Id">
+                    Purchase
+                </a>
+
+                <a class="btn btn-primary btn-lg"
+                       href="/User/AddReview?movieId=@Model.Id">
+                    Review
+                </a>
+
+            </div>
+            <!-- ⭐ END BUTTON SECTION ⭐ -->
+
+        </div>
+    </div>
+
+    <hr />
+
+    <h4>Cast</h4>
+    <div class="row">
+        @foreach (var cast in Model.Casts)
+        {
+            <div class="col-md-3 text-center mb-4">
+                <img src="@cast.ProfilePath" class="img-fluid rounded" />
+                <h6 class="mt-2">@cast.Name</h6>
+                <p class="text-muted">@cast.Character</p>
+            </div>
+        }
+    </div>
+
+</div>
