@@ -19,5 +19,12 @@ namespace MovieShop.MVC.Controllers
 
             return View(cast);
         }
+        //  POPUP 
+        [HttpGet]
+        public async Task<IActionResult> GetMovies(int id)
+        {
+            var cast = await _castService.GetCastDetails(id);
+            return Json(cast.Movies);
+        }
     }
 }

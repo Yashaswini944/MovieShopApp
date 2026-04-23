@@ -1,5 +1,6 @@
 ﻿using ApplicationCore.Contracts.Repository;
 using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
@@ -46,6 +47,26 @@ namespace Infrastructure.Repository
                 .Include(m => m.Casts).ThenInclude(mc => mc.Cast)
                 .Include(m => m.Crews).ThenInclude(mc => mc.Crew)
                 .FirstOrDefaultAsync(m => m.Id == id);
+        }
+
+        // NEW: movies by genre with pagination
+        public async Task<PaginatedResultSet<Movie>> GetMoviesByGenreAsync(
+            int genreId, int pageSize, int pageNumber)
+        {
+            var query = _dbContext.MovieGenres
+                .Where(mg => mg.GenreId == genreId)
+                .Include(mg => mg.Movie)
+                .Select(mg => mg.Movie);
+
+            var totalCount = await query.CountAsync();
+
+            var movies = await query
+                .OrderBy(m => m.Title)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return new PaginatedResultSet<Movie>(movies, pageNumber, pageSize, totalCount);
         }
     }
 }

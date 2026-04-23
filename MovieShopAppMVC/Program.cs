@@ -1,7 +1,9 @@
+using ApplicationCore.Contracts.Repositories;
 using ApplicationCore.Contracts.Repository;
 using ApplicationCore.Contracts.Services;
 using ApplicationCore.Entities;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Infrastructure.Repository;
 using Infrastructure.Services;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +20,7 @@ builder.Services.AddDbContext<MovieShopDbContext>(options =>
 // Register Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 builder.Services.AddScoped<IMovieRepository, MovieRepository>();
+builder.Services.AddScoped<IGenreRepository, GenreRepository>();
 builder.Services.AddScoped<IUserRepository, UserRepository>();
 builder.Services.AddScoped<ICastRepository, CastRepository>();
 builder.Services.AddScoped<IPurchaseRepository, PurchaseRepository>();
@@ -25,6 +28,7 @@ builder.Services.AddScoped<IReportRepository, ReportRepository>();
 
 // Register Services
 builder.Services.AddScoped<IMovieService, MovieService>();
+builder.Services.AddScoped<IGenreService, GenreService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IAccountService, AccountService>();
 builder.Services.AddScoped<IGenreService, GenreService>();

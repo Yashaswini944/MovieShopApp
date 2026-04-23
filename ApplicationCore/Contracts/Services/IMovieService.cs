@@ -13,5 +13,10 @@ namespace ApplicationCore.Contracts.Services
         Task<IEnumerable<MovieCardModel>> GetMoviesByGenre(int genreId);
 
         Task<IEnumerable<MovieCardModel>> GetAllMovies();
+
+
+        // NEW: for MoviesByGenre with pagination
+        Task<PaginatedResultSet<MovieCardModel>> GetMoviesByGenrePaginated(
+            int genreId, int pageSize, int pageNumber);
     }
 }

@@ -1,0 +1,36 @@
+﻿@model ApplicationCore.Models.PaginatedResultSet<ApplicationCore.Models.MovieCardModel>
+
+<h2 class="mb-4">Movies</h2>
+
+<div class="row g-3">
+    @foreach (var movie in Model.Data)
+    {
+        <div class="col-2 d-flex">
+            <div class="w-100">
+                @await Html.PartialAsync("_MovieCard", movie)
+            </div>
+        </div>
+
+    }
+</div>
+
+
+<div class="d-flex justify-content-between mt-4">
+
+    @if (Model.HasPreviousPage)
+    {
+        <a class="btn btn-primary"
+               href="/Movies/MoviesByGenre/@ViewBag.GenreId?pageNumber=@(Model.PageNumber - 1)&pageSize=@Model.PageSize">
+            Previous
+        </a>
+    }
+
+    @if (Model.HasNextPage)
+    {
+        <a class="btn btn-primary ms-auto"
+               href="/Movies/MoviesByGenre/@ViewBag.GenreId?pageNumber=@(Model.PageNumber + 1)&pageSize=@Model.PageSize">
+            Next
+        </a>
+    }
+
+</div>
